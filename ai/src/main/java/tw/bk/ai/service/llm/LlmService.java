@@ -1,4 +1,4 @@
-﻿package tw.bk.ai.service.llm;
+package tw.bk.ai.service.llm;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ public class LlmService {
     private final TaskExecutor llmTaskExecutor;
 
     /**
- * 串流生成回覆
+     * 串流生成回覆
      */
     public SseEmitter streamChat(Long userId, Long chatId, MessageSendReq req) {
         // 建立 SSE Emitter（超時時間 5 分鐘）
