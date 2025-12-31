@@ -1,0 +1,205 @@
+// ============================================
+// Layout Primitives - 佈局基礎元件
+// ============================================
+
+@use 'variables' as *;
+
+// ---------- App Layout ----------
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+// ---------- Sidebar ----------
+.sidebar {
+    width: $sidebar-width;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: $dark-surface;
+    border-right: 1px solid $dark-border;
+    display: flex;
+    flex-direction: column;
+    z-index: $z-sticky;
+}
+
+// ---------- Main Content ----------
+.main-content {
+    flex: 1;
+    margin-left: $sidebar-width;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+// ---------- Chat Container ----------
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.chat-thread {
+    flex: 1;
+    overflow-y: auto;
+    padding: $spacing-lg;
+}
+
+.chat-thread-inner {
+    max-width: $max-content-width;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.chat-composer {
+    padding: $spacing-md $spacing-lg $spacing-lg;
+    border-top: 1px solid $dark-border;
+    background-color: $dark-bg;
+}
+
+.chat-composer-inner {
+    max-width: $max-content-width;
+    margin: 0 auto;
+    width: 100%;
+}
+
+// ---------- Card ----------
+.card {
+    background-color: $dark-surface;
+    border: 1px solid $dark-border;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+}
+
+// ---------- Container ----------
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+}
+
+// ---------- Flex Utilities ----------
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.gap-sm {
+    gap: $spacing-sm;
+}
+
+.gap-md {
+    gap: $spacing-md;
+}
+
+.gap-lg {
+    gap: $spacing-lg;
+}
+
+// ---------- Spacing Utilities ----------
+.mt-sm {
+    margin-top: $spacing-sm;
+}
+
+.mt-md {
+    margin-top: $spacing-md;
+}
+
+.mt-lg {
+    margin-top: $spacing-lg;
+}
+
+.mb-sm {
+    margin-bottom: $spacing-sm;
+}
+
+.mb-md {
+    margin-bottom: $spacing-md;
+}
+
+.mb-lg {
+    margin-bottom: $spacing-lg;
+}
+
+.p-sm {
+    padding: $spacing-sm;
+}
+
+.p-md {
+    padding: $spacing-md;
+}
+
+.p-lg {
+    padding: $spacing-lg;
+}
+
+// ---------- Auth Layout ----------
+.auth-layout {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-lg;
+    background: linear-gradient(135deg, $dark-bg 0%, $dark-surface 100%);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background-color: $dark-surface;
+    border: 1px solid $dark-border;
+    border-radius: $radius-xl;
+    padding: $spacing-2xl;
+    box-shadow: $shadow-lg;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+
+    h1 {
+        font-size: $font-size-2xl;
+        margin-bottom: $spacing-sm;
+        background: linear-gradient(135deg, $primary-light, $primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    p {
+        color: $gray-400;
+        margin-bottom: 0;
+    }
+}

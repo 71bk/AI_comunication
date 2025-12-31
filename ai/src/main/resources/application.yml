@@ -1,0 +1,98 @@
+# ============================================
+# 應用程式配置 - GPT-like 聊天網頁後端
+# ============================================
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ai
+
+  # ============================================
+  # 資料庫配置
+  # ============================================
+  datasource:
+    url: jdbc:mysql://localhost:3306/aichat?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Taipei&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # ============================================
+  # JPA / Hibernate 配置
+  # ============================================
+  jpa:
+    hibernate:
+      ddl-auto: update  # 開發用，生產環境改成 validate 或 none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # ============================================
+  # Jackson JSON 配置
+  # ============================================
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    time-zone: Asia/Taipei
+    date-format: yyyy-MM-dd'T'HH:mm:ssXXX
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+# ============================================
+# JWT 配置
+# ============================================
+jwt:
+  secret: your-256-bit-secret-key-here-replace-in-production-with-strong-key
+  expiration: 86400000  # 24 小時（毫秒）
+  refresh-expiration: 604800000  # 7 天（毫秒）
+
+# ============================================
+# 應用程式配置
+# ============================================
+app:
+  jwt:
+    secret: ${jwt.secret}
+    expiration: ${jwt.expiration}
+    refresh-expiration: ${jwt.refresh-expiration}
+    cookie-name: access_token
+    cookie-path: /
+    cookie-same-site: Lax
+    cookie-secure: false
+    cookie-http-only: true
+  llm:
+    provider: groq
+    api-key: ${GROQ_API_KEY}
+    base-url: ${GROQ_BASE_URL:https://api.groq.com/openai/v1}
+    model: openai/gpt-oss-120b
+    temperature: 0.2
+    top-p: 1
+    reasoning-effort: medium
+    max-completion-tokens: 1100
+    max-tokens: 4096
+  rate-limit:
+    enabled: true
+    max-requests: 30
+    window-seconds: 60
+
+# ============================================
+# 日誌配置
+# ============================================
+logging:
+  level:
+    root: INFO
+    tw.bk.ai: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
