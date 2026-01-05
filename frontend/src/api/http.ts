@@ -7,7 +7,7 @@ import router from '@/router'
  * 使用 Cookie 認證方案：withCredentials 讓瀏覽器自動攜帶 HttpOnly Cookie
  */
 const http: AxiosInstance = axios.create({
-    baseURL: '/api',
+    baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
     timeout: 30000,
     withCredentials: true,  // 🔑 關鍵：啟用跨域 Cookie
     headers: {
