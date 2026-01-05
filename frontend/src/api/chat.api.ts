@@ -87,7 +87,9 @@ export function updateChatTitle(chatId: number, title: string): Promise<ChatResp
 
 /**
  * 取得 SSE 串流 URL
+ * 注意：串流請求不經過 axios，所以需要完整 URL
  */
 export function getStreamUrl(chatId: number): string {
-    return `/api/chats/${chatId}/messages:stream`
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
+    return `${baseUrl}/chats/${chatId}/messages:stream`
 }
