@@ -1,5 +1,5 @@
 {
-    "name": "71bk-ai",
+    "name": "aicommunication",
     "compatibility_date": "2026-01-05",
     "assets": {
         "directory": "./dist",
@@ -15,15 +15,13 @@
         "production": {
             "vars": {
                 "API_BASE_URL": "https://api.ai.71bk.dev"
-            }
+            },
+            "routes": [
+                {
+                    "pattern": "ai.71bk.dev",
+                    "zone_name": "71bk.dev"
+                }
+            ]
         }
-    },
-    // HTTP 響應頭配置 - 安全性和性能優化
-    "routes": [
-        {
-            "pattern": "/",
-            "zone_name": "https://ai.71bk.dev",
-            "custom_domain": true
-        }
-    ]
+    }
 }
