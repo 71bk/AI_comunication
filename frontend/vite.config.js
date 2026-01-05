@@ -27,14 +27,8 @@ export default defineConfig({
     },
   },
   build: {
-    // 啟用壓縮
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // 生產環境移除 console
-        drop_debugger: true, // 移除 debugger
-      },
-    },
+    // 使用 esbuild 壓縮（內置，無需安裝 terser）
+    minify: 'esbuild',
     // 代碼分割 - 優化首屏加載
     rollupOptions: {
       output: {
