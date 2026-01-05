@@ -60,13 +60,16 @@ jwt:
 # 應用程式配置
 # ============================================
 app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}
   jwt:
     secret: ${jwt.secret}
     expiration: ${jwt.expiration}
     refresh-expiration: ${jwt.refresh-expiration}
     cookie-name: access_token
     cookie-path: /
-    cookie-same-site: Lax
+    cookie-domain: ${COOKIE_DOMAIN:}  # 留空則預設為當前 Host
+    cookie-same-site: ${COOKIE_SAME_SITE:Lax}
     cookie-secure: ${COOKIE_SECURE:false}
     cookie-http-only: true
   llm:
@@ -96,3 +99,16 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+
+# ============================================
+# Actuator 監控配置
+# ============================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always

@@ -18,6 +18,7 @@ public class AppProperties {
     private Jwt jwt = new Jwt();
     private Llm llm = new Llm();
     private RateLimit rateLimit = new RateLimit();
+    private Cors cors = new Cors();
 
     @Getter
     @Setter
@@ -27,9 +28,16 @@ public class AppProperties {
         private long refreshExpiration = 604800000; // 7 days
         private String cookieName = "access_token";
         private String cookiePath = "/";
+        private String cookieDomain; // 新增：支援跨子網域
         private String cookieSameSite = "Lax";
         private boolean cookieSecure = false;
         private boolean cookieHttpOnly = true;
+    }
+
+    @Getter
+    @Setter
+    public static class Cors {
+        private String[] allowedOrigins = {"http://localhost:5173", "http://localhost:3000"};
     }
 
     @Getter

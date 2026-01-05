@@ -81,23 +81,33 @@ public class AuthController {
 
     private ResponseCookie buildAccessTokenCookie(String token) {
         AppProperties.Jwt jwt = appProperties.getJwt();
-        return ResponseCookie.from(jwt.getCookieName(), token)
+        ResponseCookie.ResponseCookieBuilder builder = ResponseCookie.from(jwt.getCookieName(), token)
                 .httpOnly(jwt.isCookieHttpOnly())
                 .secure(jwt.isCookieSecure())
                 .sameSite(jwt.getCookieSameSite())
                 .path(jwt.getCookiePath())
-                .maxAge(Duration.ofMillis(jwt.getExpiration()))
-                .build();
+                .maxAge(Duration.ofMillis(jwt.getExpiration()));
+
+        if (jwt.getCookieDomain() != null && !jwt.getCookieDomain().isEmpty()) {
+            builder.domain(jwt.getCookieDomain());
+        }
+
+        return builder.build();
     }
 
     private ResponseCookie clearAccessTokenCookie() {
         AppProperties.Jwt jwt = appProperties.getJwt();
-        return ResponseCookie.from(jwt.getCookieName(), "")
+        ResponseCookie.ResponseCookieBuilder builder = ResponseCookie.from(jwt.getCookieName(), "")
                 .httpOnly(jwt.isCookieHttpOnly())
                 .secure(jwt.isCookieSecure())
                 .sameSite(jwt.getCookieSameSite())
                 .path(jwt.getCookiePath())
-                .maxAge(Duration.ZERO)
-                .build();
+                .maxAge(Duration.ZERO);
+
+        if (jwt.getCookieDomain() != null && !jwt.getCookieDomain().isEmpty()) {
+            builder.domain(jwt.getCookieDomain());
+        }
+
+        return builder.build();
     }
 }

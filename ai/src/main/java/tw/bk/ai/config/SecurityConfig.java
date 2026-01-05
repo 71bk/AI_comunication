@@ -74,10 +74,10 @@ public class SecurityConfig {
 
                 // 統一 401/403 回應
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint((request, response, authException) ->
-                                writeErrorResponse(request, response, HttpStatus.UNAUTHORIZED, ErrorCode.AUTH_INVALID_TOKEN))
-                        .accessDeniedHandler((request, response, accessDeniedException) ->
-                                writeErrorResponse(request, response, HttpStatus.FORBIDDEN, ErrorCode.AUTH_FORBIDDEN)))
+                        .authenticationEntryPoint((request, response, authException) -> writeErrorResponse(request,
+                                response, HttpStatus.UNAUTHORIZED, ErrorCode.AUTH_INVALID_TOKEN))
+                        .accessDeniedHandler((request, response, accessDeniedException) -> writeErrorResponse(request,
+                                response, HttpStatus.FORBIDDEN, ErrorCode.AUTH_FORBIDDEN)))
 
                 // 設定認證提供者
                 .authenticationProvider(authenticationProvider())
@@ -91,7 +91,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "https://ai.71bk.dev"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
@@ -99,6 +102,7 @@ public class SecurityConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/actuator/**", config);
         return source;
     }
 
